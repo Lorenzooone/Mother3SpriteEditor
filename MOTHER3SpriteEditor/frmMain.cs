@@ -279,6 +279,8 @@ namespace MOTHER3SpriteEditor
                 mnuFindNext.Enabled =
                 mnuSwap.Enabled =
                 mnuSelCol.Enabled =
+                paletteBox.Enabled =
+                confirmPalNumChange.Enabled = 
                 e;
             foreach (Control c in grpSpriteSelector.Controls)
                 c.Enabled = e;
@@ -559,10 +561,8 @@ namespace MOTHER3SpriteEditor
             sprite = new Sprite(romHandle, curBank,
                 cboMainEntry.SelectedIndex,
                 (int)nudSpriteEntry.Value);
-            spriteViewer.Sprite = sprite;
-            spriteEditor.Sprite = sprite;
-            paletteSelector.Sprite = sprite;
-            frmProperties.Sprite = sprite;
+            updateEditors();
+            paletteBox.setSprite(sprite);
         }
 
         private void nudSubSprite_ValueChanged(object sender, EventArgs e)
@@ -811,5 +811,28 @@ namespace MOTHER3SpriteEditor
             }
         }
 
+        private void paletteBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            paletteBox.sprite = sprite;
+            paletteBox.setSpriteSubPalette();
+            spriteViewer.UpdateView();
+            spriteEditor.UpdateView();
+            paletteSelector.UpdateView();
+            frmProperties.Sprite = sprite;
+        }
+
+        private void updateEditors()
+        {
+            spriteViewer.Sprite = sprite;
+            spriteEditor.Sprite = sprite;
+            paletteSelector.Sprite = sprite;
+            frmProperties.Sprite = sprite;
+        }
+
+        private void confirmPalNumChange_Click(object sender, EventArgs e)
+        {
+            if (sprite.Pal.savePalSubBank())
+                spriteEditor.IsChanged = true;
+        }
     }
 }

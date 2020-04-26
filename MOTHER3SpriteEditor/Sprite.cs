@@ -139,6 +139,7 @@ namespace MOTHER3SpriteEditor
         int bank;
         int mainEntry;
         int spriteEntry;
+        private int infoAddress;
 
         public Palette Pal
         {
@@ -148,7 +149,6 @@ namespace MOTHER3SpriteEditor
 
         public Sprite(ROMHandler ROMFile, int Bank, int MainEntry, int SpriteEntry)
         {
-            int infoAddress;
             int entryCounter = 0;
 
             romFile = ROMFile;
@@ -173,6 +173,11 @@ namespace MOTHER3SpriteEditor
                 entryCounter++;
             }
 
+            ComputeSubSprites();
+        }
+
+        public void ComputeSubSprites()
+        {
             romFile.Seek(infoAddress);
             NumSubSprites = romFile.ReadHWord();
             SubSprite retVal;

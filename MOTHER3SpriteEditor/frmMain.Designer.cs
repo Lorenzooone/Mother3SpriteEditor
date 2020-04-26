@@ -46,6 +46,7 @@
             this.mnuZoom = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuGridLines = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuGridColor = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuSelCol = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuFindSprite = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuTxtFindSprite = new System.Windows.Forms.ToolStripTextBox();
@@ -87,14 +88,16 @@
             this.lblSpritePreview = new System.Windows.Forms.Label();
             this.grpSpriteSelector = new System.Windows.Forms.GroupBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.paletteSelector = new MOTHER3SpriteEditor.PaletteSelector();
             this.toolStripTools = new System.Windows.Forms.ToolStrip();
             this.pPalette = new System.Windows.Forms.PictureBox();
             this.dlgSavePNG = new System.Windows.Forms.SaveFileDialog();
             this.dlgSelColor = new System.Windows.Forms.ColorDialog();
-            this.mnuSelCol = new System.Windows.Forms.ToolStripMenuItem();
-            this.paletteSelector = new MOTHER3SpriteEditor.PaletteSelector();
+            this.paletteLbl = new System.Windows.Forms.Label();
+            this.paletteBox = new MOTHER3SpriteEditor.SubPaletteSpriteSelector();
             this.spriteEditor = new MOTHER3SpriteEditor.EditorInterface();
             this.spriteViewer = new MOTHER3SpriteEditor.ViewerInterface();
+            this.confirmPalNumChange = new System.Windows.Forms.Button();
             this.mnuMainStrip.SuspendLayout();
             this.contextMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackZoom)).BeginInit();
@@ -141,7 +144,7 @@
             this.mnuFileOpenROM.Image = global::MOTHER3SpriteEditor.Properties.Resources.open;
             this.mnuFileOpenROM.Name = "mnuFileOpenROM";
             this.mnuFileOpenROM.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.mnuFileOpenROM.Size = new System.Drawing.Size(185, 22);
+            this.mnuFileOpenROM.Size = new System.Drawing.Size(193, 22);
             this.mnuFileOpenROM.Text = "&Open ROM...";
             this.mnuFileOpenROM.Click += new System.EventHandler(this.mnuFileOpenROM_Click);
             // 
@@ -151,7 +154,7 @@
             this.mnuFileSave.Image = ((System.Drawing.Image)(resources.GetObject("mnuFileSave.Image")));
             this.mnuFileSave.Name = "mnuFileSave";
             this.mnuFileSave.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.mnuFileSave.Size = new System.Drawing.Size(185, 22);
+            this.mnuFileSave.Size = new System.Drawing.Size(193, 22);
             this.mnuFileSave.Text = "&Save changes";
             this.mnuFileSave.Click += new System.EventHandler(this.mnuFileSave_Click);
             // 
@@ -160,19 +163,19 @@
             this.mnuFileClose.Enabled = false;
             this.mnuFileClose.Image = ((System.Drawing.Image)(resources.GetObject("mnuFileClose.Image")));
             this.mnuFileClose.Name = "mnuFileClose";
-            this.mnuFileClose.Size = new System.Drawing.Size(185, 22);
+            this.mnuFileClose.Size = new System.Drawing.Size(193, 22);
             this.mnuFileClose.Text = "&Close ROM";
             this.mnuFileClose.Click += new System.EventHandler(this.mnuFileClose_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(182, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(190, 6);
             // 
             // mnuFileExit
             // 
             this.mnuFileExit.Name = "mnuFileExit";
-            this.mnuFileExit.Size = new System.Drawing.Size(185, 22);
+            this.mnuFileExit.Size = new System.Drawing.Size(193, 22);
             this.mnuFileExit.Text = "&Exit";
             this.mnuFileExit.Click += new System.EventHandler(this.mnuFileExit_Click);
             // 
@@ -253,6 +256,14 @@
             this.mnuGridColor.Text = "G&rid color...";
             this.mnuGridColor.Click += new System.EventHandler(this.mnuGridColor_Click);
             // 
+            // mnuSelCol
+            // 
+            this.mnuSelCol.Enabled = false;
+            this.mnuSelCol.Name = "mnuSelCol";
+            this.mnuSelCol.Size = new System.Drawing.Size(161, 22);
+            this.mnuSelCol.Text = "Selection color...";
+            this.mnuSelCol.Visible = false;
+            // 
             // toolStripMenuItem4
             // 
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
@@ -330,7 +341,7 @@
             this.mnuAutoSave,
             this.mnuSwap});
             this.mnuTools.Name = "mnuTools";
-            this.mnuTools.Size = new System.Drawing.Size(48, 20);
+            this.mnuTools.Size = new System.Drawing.Size(46, 20);
             this.mnuTools.Text = "&Tools";
             // 
             // mnuSavePNG
@@ -645,6 +656,15 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "   Palette";
             // 
+            // paletteSelector
+            // 
+            this.paletteSelector.Enabled = false;
+            this.paletteSelector.Location = new System.Drawing.Point(8, 22);
+            this.paletteSelector.Name = "paletteSelector";
+            this.paletteSelector.Size = new System.Drawing.Size(182, 38);
+            this.paletteSelector.Sprite = null;
+            this.paletteSelector.TabIndex = 5;
+            // 
             // toolStripTools
             // 
             this.toolStripTools.AutoSize = false;
@@ -677,28 +697,35 @@
             this.dlgSelColor.AnyColor = true;
             this.dlgSelColor.Color = System.Drawing.Color.Blue;
             // 
-            // mnuSelCol
+            // paletteLbl
             // 
-            this.mnuSelCol.Enabled = false;
-            this.mnuSelCol.Name = "mnuSelCol";
-            this.mnuSelCol.Size = new System.Drawing.Size(161, 22);
-            this.mnuSelCol.Text = "Selection color...";
-            this.mnuSelCol.Visible = false;
+            this.paletteLbl.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.paletteLbl.AutoSize = true;
+            this.paletteLbl.Location = new System.Drawing.Point(597, 264);
+            this.paletteLbl.Name = "paletteLbl";
+            this.paletteLbl.Size = new System.Drawing.Size(43, 13);
+            this.paletteLbl.TabIndex = 24;
+            this.paletteLbl.Text = "Palette:";
             // 
-            // paletteSelector
+            // paletteBox
             // 
-            this.paletteSelector.Enabled = false;
-            this.paletteSelector.Location = new System.Drawing.Point(8, 22);
-            this.paletteSelector.Name = "paletteSelector";
-            this.paletteSelector.Size = new System.Drawing.Size(182, 38);
-            this.paletteSelector.Sprite = null;
-            this.paletteSelector.TabIndex = 5;
+            this.paletteBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.paletteBox.DropDownHeight = 210;
+            this.paletteBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.paletteBox.Enabled = false;
+            this.paletteBox.FormattingEnabled = true;
+            this.paletteBox.IntegralHeight = false;
+            this.paletteBox.Location = new System.Drawing.Point(600, 280);
+            this.paletteBox.Name = "paletteBox";
+            this.paletteBox.Size = new System.Drawing.Size(91, 21);
+            this.paletteBox.TabIndex = 17;
+            this.paletteBox.SelectedIndexChanged += new System.EventHandler(this.paletteBox_SelectedIndexChanged);
             // 
             // spriteEditor
             // 
-            this.spriteEditor.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.spriteEditor.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.spriteEditor.AutoScroll = true;
             this.spriteEditor.AutoScrollMargin = new System.Drawing.Size(3, 3);
             this.spriteEditor.BackColor = System.Drawing.SystemColors.AppWorkspace;
@@ -733,11 +760,24 @@
             this.spriteViewer.Sprite = null;
             this.spriteViewer.TabIndex = 1;
             // 
+            // confirmPalNumChange
+            // 
+            this.confirmPalNumChange.Location = new System.Drawing.Point(600, 308);
+            this.confirmPalNumChange.Name = "confirmPalNumChange";
+            this.confirmPalNumChange.Size = new System.Drawing.Size(91, 23);
+            this.confirmPalNumChange.TabIndex = 25;
+            this.confirmPalNumChange.Text = "Save Pal Num";
+            this.confirmPalNumChange.UseVisualStyleBackColor = true;
+            this.confirmPalNumChange.Click += new System.EventHandler(this.confirmPalNumChange_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(701, 444);
+            this.Controls.Add(this.confirmPalNumChange);
+            this.Controls.Add(this.paletteBox);
+            this.Controls.Add(this.paletteLbl);
             this.Controls.Add(this.lblZoom);
             this.Controls.Add(this.trackZoom);
             this.Controls.Add(this.pPalette);
@@ -834,6 +874,9 @@
         private System.Windows.Forms.ToolStripMenuItem mnuSwap;
         private System.Windows.Forms.ColorDialog dlgSelColor;
         private System.Windows.Forms.ToolStripMenuItem mnuSelCol;
+        private System.Windows.Forms.Label paletteLbl;
+        private SubPaletteSpriteSelector paletteBox;
+        private System.Windows.Forms.Button confirmPalNumChange;
     }
 }
 

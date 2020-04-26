@@ -148,6 +148,9 @@
     <Compile Include="ROMHandler.cs" />
     <Compile Include="ROMInfo.cs" />
     <Compile Include="Sprite.cs" />
+    <Compile Include="SubPaletteSpriteSelector.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Tileset.cs" />
     <Compile Include="ViewerInterface.cs">
       <SubType>UserControl</SubType>

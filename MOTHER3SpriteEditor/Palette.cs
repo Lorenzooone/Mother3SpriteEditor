@@ -16,8 +16,10 @@ namespace MOTHER3SpriteEditor
         private int palAddress;
         private ROMHandler rom;
         private int mainentry;
+        private Color? transparentColor;
 
         public int palSubBank;
+        public int palBank;
 
         public int Address
         {
@@ -30,8 +32,7 @@ namespace MOTHER3SpriteEditor
         {
             // Bank is irrelevant? Requires ROM research; check if the
             // [0x100, 0x26B] custom range is applicable beyond bank 0
-
-            int palBank;
+            
             //int palAddress;
             rom = romFile;
             mainentry = mainEntry;
@@ -42,7 +43,13 @@ namespace MOTHER3SpriteEditor
             // Compute palSubBank
             rom.Seek(ROMInfo.palInfoAddress + (mainEntry * 12));
             palSubBank = ((mainEntry > 0xFF) && (mainEntry < 0x26C)) ? 0 : (romFile.ReadByte() & 0xF);
+            this.transparentColor = transparentColor;
 
+            ComputePal();
+        }
+
+        public void ComputePal()
+        {
             // Compute palAddress
             palAddress = ROMInfo.palStartAddress + rom.ReadWord(
                 ROMInfo.palStartAddress + 4 + (palBank * 4)) +
@@ -61,6 +68,32 @@ namespace MOTHER3SpriteEditor
                     _pal[i] = rom.ReadColor();
                 }
             }
+        }
+
+        public void SetPalSubBank(int palSubBank)
+        {
+            //Update palSubBank
+            this.palSubBank = ((mainentry > 0xFF) && (mainentry < 0x26C)) ? 0 : (palSubBank & 0xF);
+            
+            ComputePal();
+        }
+
+        public bool savePalSubBank()
+        {
+            if (!((mainentry > 0xFF) && (mainentry < 0x26C)))
+            {
+                rom.Seek(ROMInfo.palInfoAddress + (mainentry * 12));
+                int starting = rom.ReadByte();
+                int rest = starting & 0xF0;
+                int ending = rest | this.palSubBank;
+                if (ending != starting)
+                {
+                    
+                    rom.WriteByte(ROMInfo.palInfoAddress + (mainentry * 12), (byte)(rest | this.palSubBank));
+                    return true;
+                }
+            }
+            return false;
         }
 
         public Color[] GetPalette()
