@@ -762,6 +762,7 @@
             // 
             // confirmPalNumChange
             // 
+            this.confirmPalNumChange.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.confirmPalNumChange.Location = new System.Drawing.Point(600, 308);
             this.confirmPalNumChange.Name = "confirmPalNumChange";
             this.confirmPalNumChange.Size = new System.Drawing.Size(91, 23);
