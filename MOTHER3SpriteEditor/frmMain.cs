@@ -261,6 +261,8 @@ namespace MOTHER3SpriteEditor
                 mnuSavePNG.Enabled =
                 mnuSavePNGFull.Enabled =
                 mnuSavePNGSub.Enabled =
+                toolStripMenuItem5.Enabled =
+                importToolStripMenuItem.Enabled =
                 //mnuEditCut.Enabled =
                 //mnuEditCopy.Enabled =
                 //mnuEditPaste.Enabled =

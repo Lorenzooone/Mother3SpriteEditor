@@ -67,6 +67,7 @@
             this.mnuSpriteProperties = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuAutoSave = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuSwap = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.zoomToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -98,6 +99,7 @@
             this.spriteEditor = new MOTHER3SpriteEditor.EditorInterface();
             this.spriteViewer = new MOTHER3SpriteEditor.ViewerInterface();
             this.confirmPalNumChange = new System.Windows.Forms.Button();
+            this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuMainStrip.SuspendLayout();
             this.contextMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackZoom)).BeginInit();
@@ -339,7 +341,9 @@
             this.toolStripMenuItem3,
             this.mnuSpriteProperties,
             this.mnuAutoSave,
-            this.mnuSwap});
+            this.mnuSwap,
+            this.toolStripMenuItem5,
+            this.importToolStripMenuItem});
             this.mnuTools.Name = "mnuTools";
             this.mnuTools.Size = new System.Drawing.Size(46, 20);
             this.mnuTools.Text = "&Tools";
@@ -435,6 +439,13 @@
             this.mnuSwap.Size = new System.Drawing.Size(205, 22);
             this.mnuSwap.Text = "Swap entries...";
             this.mnuSwap.Click += new System.EventHandler(this.mnuSwap_Click);
+            // 
+            // toolStripMenuItem5
+            // 
+            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(205, 22);
+            this.toolStripMenuItem5.Text = "Export binary...";
+            this.toolStripMenuItem5.Enabled = false;
             // 
             // mnuAbout
             // 
@@ -771,6 +782,13 @@
             this.confirmPalNumChange.UseVisualStyleBackColor = true;
             this.confirmPalNumChange.Click += new System.EventHandler(this.confirmPalNumChange_Click);
             // 
+            // importToolStripMenuItem
+            // 
+            this.importToolStripMenuItem.Name = "importToolStripMenuItem";
+            this.importToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.importToolStripMenuItem.Text = "Import...";
+            this.importToolStripMenuItem.Enabled = false;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -878,6 +896,8 @@
         private System.Windows.Forms.Label paletteLbl;
         private SubPaletteSpriteSelector paletteBox;
         private System.Windows.Forms.Button confirmPalNumChange;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem5;
+        private System.Windows.Forms.ToolStripMenuItem importToolStripMenuItem;
     }
 }
 
